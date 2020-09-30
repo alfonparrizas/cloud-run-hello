@@ -4,3 +4,9 @@ steps:
   timeout: 500s
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/${PROJECT_ID}/hello']
+# Deploy container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', 'hello', '--image', 'gcr.io/${PROJECT_ID}/hello', '--region', 'europe-west1', '--platform', 'managed', '--no-traffic']
+images:
+- gcr.io/${PROJECT_ID}/hello
